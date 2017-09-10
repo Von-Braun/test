@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Press space to increment the counter. Backspace resets it. ESC clears cookies/everything.</p>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+</script>
+
+
+<script>
+var x=0;
+var highscore_num=0;
+highscore_num=parseInt(localStorage.getItem("highscore"));
+x=parseInt(localStorage.getItem("counter"));
+ 
+$(document).ready(function() {
+  $(".highscore").html(highscore_num);
+  $(".content").html(x);
+});
+
+//Cookies.get('highscore'); // => 'value';
+
+$(document).keydown(function(e) {
+  if(e.which == 8) {
+     //alert("BACK IT UP!");
+     x=0;
+     $(".content").html(x);
+     localStorage.setItem("counter", 0);
+  }
+});
+$(document).keydown(function(e) {
+  if(e.which == 27) {
+     localStorage.setItem("highscore", 0);
+     localStorage.setItem("counter", 0);
+$(".highscore").html(0);
+$(".content").html(0);
+x=0;
+highscore_num=0;
+  }
+});
+$(document).keypress(function(e) {
+
+  if(e.which == 32) {
+     //alert("SPACE COWBOY!"+x);
+     x=x+1;
+     localStorage.setItem("counter", x);
+     $(".content").html(x);
+     if (x>highscore_num){
+         $(".highscore").html(x);
+         highscore_num=x;
+         localStorage.setItem("highscore", x);
+     }
+  }
+});
+
+</script>
+<p>Counter:</p>
+<div class="content"><p>0</p></div>
+<p>Highscore:</p>
+<div class="highscore"><p>0</p></div>
+</head>
+</body>
+</html>
